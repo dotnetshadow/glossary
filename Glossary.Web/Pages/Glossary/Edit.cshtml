@@ -1,0 +1,49 @@
+﻿@page "{id:int}"
+@model EditModel
+@{
+    ViewData["Title"] = "Edit - Glossary";
+}
+
+<h1 class="mb-4">@ViewData["Title"]</h1>
+
+<a asp-page="Index" class="btn btn-outline-secondary mb-4">&laquo; Back</a>
+
+@if (TempData["Glossary:Error"] != null)
+{
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error</strong> @TempData["Glossary:Error"].
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+}
+
+@if(Model.GlossaryItem != null)
+{
+    <form method="post">
+        @*<div asp-validation-summary="All" class=""></div>*@
+        <input asp-for="GlossaryItem.Id" type="hidden" />
+        <div class="mb-3">
+            <label asp-for="GlossaryItem.Term" class="form-label"></label>
+            <input asp-for="GlossaryItem.Term" class="form-control"/>
+            <span asp-validation-for="GlossaryItem.Term" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="GlossaryItem.Definition" class="form-label"></label>
+            <textarea asp-for="GlossaryItem.Definition" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="GlossaryItem.Definition" class="text-danger"></span>
+        </div>
+        
+        <div>
+            <button type="submit" class="btn btn-primary mb-3">Submit</button>
+        </div>
+
+
+    </form>
+}
+else
+{
+    <div class="alert alert-danger d-flex justify-content-between align-items-center" role="alert">
+        The glossary item does not exist
+        <a asp-page="Index" class="btn btn-danger">&laquo; Go Back</a>
+    </div>
+}
